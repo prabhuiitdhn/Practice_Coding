@@ -860,7 +860,7 @@ Mutable objects are those whose state can be changed after they are created. Exa
   - Example:
     ```python
     lst = [1, 2, 3]
-    lst.append(4)  # Modifies the same object in memory
+    lst.append(4)  # Modifies the same object
     ```
 
 - **Shared References**:
@@ -1474,4 +1474,154 @@ result = process_list(original)
 print(original)  # [1, 2, 3] — original remains unchanged
 ```
 For nested or deeply nested structures, use `copy.deepcopy()` to create a deep copy. Alternatively, you can use **immutable data structures** like tuples or frozensets to ensure that the data cannot be modified.
+
+---
+
+## 16. Comprehensions & Generators — Interview Questions
+
+### **1. List Comprehensions**
+- **Basic Questions**:
+  1. What is a list comprehension, and how does it differ from a `for` loop?
+  2. Write a list comprehension to generate squares of numbers from 1 to 10.
+  3. How can you filter elements in a list comprehension? Provide an example.
+
+- **Advanced Questions**:
+  1. How does a list comprehension handle nested loops? Write an example.
+  2. What is the time complexity of a list comprehension compared to a `for` loop?
+  3. Can you use `if-else` conditions in a list comprehension? Provide an example.
+
+---
+
+### **2. Dictionary Comprehensions**
+- **Basic Questions**:
+  1. What is a dictionary comprehension, and how is it used?
+  2. Write a dictionary comprehension to create a dictionary where keys are numbers from 1 to 5, and values are their squares.
+
+- **Advanced Questions**:
+  1. How can you filter keys or values in a dictionary comprehension? Provide an example.
+  2. Can you use multiple `for` loops in a dictionary comprehension? Write an example.
+
+---
+
+### **3. Set Comprehensions**
+- **Basic Questions**:
+  1. What is a set comprehension, and how does it differ from a list comprehension?
+  2. Write a set comprehension to generate unique squares of numbers from 1 to 10.
+
+- **Advanced Questions**:
+  1. How does a set comprehension handle duplicate values? Provide an example.
+  2. Can you use `if-else` conditions in a set comprehension? Write an example.
+
+---
+
+### **4. Generator Expressions**
+- **Basic Questions**:
+  1. What is a generator expression, and how does it differ from a list comprehension?
+  2. Write a generator expression to generate squares of numbers from 1 to 10.
+  3. How do you iterate over a generator expression?
+
+- **Advanced Questions**:
+  1. What are the advantages of using a generator expression over a list comprehension?
+  2. How does a generator expression handle memory differently from a list comprehension?
+  3. Can you use `if-else` conditions in a generator expression? Provide an example.
+
+---
+
+### **5. General Questions**
+- **Basic Questions**:
+  1. What are the key differences between comprehensions and generator expressions?
+  2. Why are comprehensions considered more Pythonic than traditional loops?
+
+- **Advanced Questions**:
+  1. How would you convert a generator expression into a list, set, or dictionary?
+  2. What happens if you try to iterate over a generator expression multiple times?
+  3. How can you use comprehensions or generators to process large datasets efficiently?
+
+---
+
+### **6. Practical Scenarios**
+- **Basic Questions**:
+  1. Write a list comprehension to flatten a 2D list.
+  2. Write a generator expression to read lines from a large file one at a time.
+
+- **Advanced Questions**:
+  1. How would you use a generator to implement an infinite sequence (e.g., Fibonacci numbers)?
+  2. How can you use a comprehension or generator to filter and transform data in a pipeline?
+
+---
+
+### Q&A: List Comprehensions vs For Loops
+
+**Q1: What is a list comprehension, and how does it differ from a `for` loop?**
+
+A list comprehension is a concise way to create lists in Python by embedding a `for` loop and optional conditions directly within square brackets. It allows you to generate a new list by applying an expression to each item in an iterable. For example, `[x**2 for x in range(5)]` creates a list of squares `[0, 1, 4, 9, 16]`. Unlike a traditional `for` loop, which requires multiple lines to append elements to a list, a list comprehension is more compact and often more readable. However, `for` loops are more flexible for complex logic or when side effects (e.g., printing) are needed.
+
+---
+
+**Q2: What is the time complexity of a list comprehension compared to a `for` loop?**
+
+The time complexity of a list comprehension is generally the same as the equivalent `for` loop because both iterate over the elements of an iterable. For example, a list comprehension like `[x**2 for x in range(n)]` has a time complexity of $O(n)$, the same as a `for` loop that appends squared values to a list. However, list comprehensions can be slightly faster in practice because they are optimized in Python's implementation (CPython) and avoid the overhead of repeatedly calling `list.append()` in a loop. Despite this, the asymptotic complexity remains identical, and the choice between the two should prioritize readability and maintainability.
+
+---
+
+### Using if-else Conditions in List Comprehensions
+
+**Q: Can you use if-else conditions in a list comprehension? Provide an example.**
+
+**A:** Yes, you can use `if-else` conditions in a list comprehension. The `if-else` construct allows you to include conditional logic within the comprehension, enabling you to generate elements based on specific conditions. The syntax for using `if-else` in a list comprehension is slightly different from using a simple `if` condition.
+
+### Syntax:
+```python
+[expression_if_true if condition else expression_if_false for item in iterable]
+```
+
+Here:
+- `condition` is the logical condition to evaluate.
+- `expression_if_true` is the value to include in the list if the condition is `True`.
+- `expression_if_false` is the value to include in the list if the condition is `False`.
+- `iterable` is the sequence or collection being iterated over.
+
+### Example:
+Suppose you want to create a list where even numbers are squared, and odd numbers are cubed, from a given range of numbers.
+
+```python
+numbers = [1, 2, 3, 4, 5]
+result = [x**2 if x % 2 == 0 else x**3 for x in numbers]
+print(result)
+```
+
+**Output:**
+```
+[1, 4, 27, 16, 125]
+```
+
+### Explanation:
+1. The list comprehension iterates over each number in the `numbers` list.
+2. For each number `x`:
+   - If `x % 2 == 0` (i.e., `x` is even), the expression `x**2` is evaluated and added to the result list.
+   - Otherwise, the expression `x**3` is evaluated and added to the result list.
+3. The final result is a list where even numbers are squared, and odd numbers are cubed.
+
+### Key Points:
+- The `if-else` condition must come before the `for` loop in the comprehension.
+- This is different from a simple `if` condition (filtering), where the `if` comes after the `for` loop.
+- You can use this construct to handle more complex logic directly within the comprehension.
+
+### Comparison with Simple `if` Filtering:
+If you only want to include elements that satisfy a condition (filtering), you use:
+```python
+[expression for item in iterable if condition]
+```
+For example:
+```python
+numbers = [1, 2, 3, 4, 5]
+evens = [x for x in numbers if x % 2 == 0]
+print(evens)
+```
+**Output:**
+```
+[2, 4]
+```
+
+In this case, only even numbers are included in the result list, and no `else` condition is needed.
 
