@@ -2793,3 +2793,777 @@ print(max_value)  # Output: 8
 - The `reduce` function is less commonly used in modern Python because explicit loops or comprehensions are often more readable.
 - For simple aggregations like summing or finding the maximum, Python provides built-in functions like `sum()` and `max()`.
 
+---
+
+## `Counter` in Python
+
+The `Counter` class is part of the `collections` module in Python. It is a specialized dictionary designed for counting hashable objects. It is particularly useful for tasks like counting occurrences of elements in a list, string, or any other iterable.
+
+### Syntax:
+```python
+from collections import Counter
+
+Counter(iterable)
+Counter(mapping)
+Counter(**kwargs)
+```
+
+- **`iterable`**: An iterable (e.g., list, string, tuple) whose elements will be counted.
+- **`mapping`**: A dictionary-like object where keys are elements and values are their counts.
+- **`**kwargs`**: Keyword arguments where keys are elements and values are their counts.
+
+### Key Features:
+1. **Counts Elements**: Counts the occurrences of each element in the input.
+2. **Dictionary-Like**: Behaves like a dictionary where keys are elements and values are their counts.
+3. **Arithmetic Operations**: Supports addition, subtraction, intersection, and union of counts.
+
+### Example 1: Counting Elements in a List
+```python
+from collections import Counter
+
+data = ['a', 'b', 'a', 'c', 'b', 'a']
+counts = Counter(data)
+
+print(counts)  # Output: Counter({'a': 3, 'b': 2, 'c': 1})
+```
+
+### Example 2: Counting Characters in a String
+```python
+from collections import Counter
+
+text = "hello world"
+char_counts = Counter(text)
+
+print(char_counts)  # Output: Counter({'l': 3, 'o': 2, 'h': 1, 'e': 1, ' ': 1, 'w': 1, 'r': 1, 'd': 1})
+```
+
+### Example 3: Using a Dictionary to Initialize
+```python
+from collections import Counter
+
+counts = Counter({'a': 3, 'b': 2, 'c': 1})
+print(counts)  # Output: Counter({'a': 3, 'b': 2, 'c': 1})
+```
+
+### Example 4: Arithmetic Operations
+```python
+from collections import Counter
+
+c1 = Counter(a=3, b=1)
+c2 = Counter(a=1, b=2, c=1)
+
+# Addition
+print(c1 + c2)  # Output: Counter({'a': 4, 'b': 3, 'c': 1})
+
+# Subtraction
+print(c1 - c2)  # Output: Counter({'a': 2, 'b': 0})
+
+# Intersection (minimum of counts)
+print(c1 & c2)  # Output: Counter({'a': 1, 'b': 1})
+
+# Union (maximum of counts)
+print(c1 | c2)  # Output: Counter({'a': 3, 'b': 2, 'c': 1})
+```
+
+### Example 5: Most Common Elements
+```python
+from collections import Counter
+
+data = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']
+counts = Counter(data)
+
+print(counts.most_common(2))  # Output: [('apple', 3), ('banana', 2)]
+```
+
+### Use Cases:
+- Counting occurrences of elements in a dataset.
+- Finding the most common elements.
+- Performing arithmetic operations on counts.
+
+### Notes:
+- The `Counter` class is optimized for counting and provides a clean, readable way to handle frequency-related tasks.
+- It is a subclass of `dict`, so it supports all dictionary methods.
+
+---
+
+## `defaultdict` in Python
+
+The `defaultdict` is part of the `collections` module in Python. It is a subclass of the built-in `dict` class that provides default values for missing keys. This eliminates the need to check for the existence of a key before accessing or modifying its value.
+
+### Syntax:
+```python
+from collections import defaultdict
+
+defaultdict(default_factory)
+```
+
+- **`default_factory`**: A callable (e.g., `int`, `list`, `set`, or a custom function) that provides the default value for missing keys. If `default_factory` is `None`, a `KeyError` is raised for missing keys.
+
+### Key Features:
+1. Automatically initializes missing keys with a default value.
+2. Simplifies code by avoiding explicit checks for key existence.
+3. Behaves like a regular dictionary for existing keys.
+
+### Example 1: Using `int` as the Default Factory
+```python
+from collections import defaultdict
+
+# Default value for missing keys is 0
+counts = defaultdict(int)
+
+data = ['a', 'b', 'a', 'c', 'b', 'a']
+for item in data:
+    counts[item] += 1
+
+print(counts)  # Output: defaultdict(<class 'int'>, {'a': 3, 'b': 2, 'c': 1})
+```
+
+### Example 2: Using `list` as the Default Factory
+```python
+from collections import defaultdict
+
+# Default value for missing keys is an empty list
+grouped_data = defaultdict(list)
+
+data = [('a', 1), ('b', 2), ('a', 3), ('c', 4)]
+for key, value in data:
+    grouped_data[key].append(value)
+
+print(grouped_data)  # Output: defaultdict(<class 'list'>, {'a': [1, 3], 'b': [2], 'c': [4]})
+```
+
+### Example 3: Using a Custom Function as the Default Factory
+```python
+from collections import defaultdict
+
+# Custom default factory
+def default_value():
+    return "default"
+
+custom_dict = defaultdict(default_value)
+
+print(custom_dict['missing'])  # Output: "default"
+print(custom_dict)  # Output: defaultdict(<function default_value at 0x...>, {'missing': 'default'})
+```
+
+### Example 4: Counting Words in a Sentence
+```python
+from collections import defaultdict
+
+sentence = "the quick brown fox jumps over the lazy dog"
+word_counts = defaultdict(int)
+
+for word in sentence.split():
+    word_counts[word] += 1
+
+print(word_counts)
+# Output: defaultdict(<class 'int'>, {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1})
+```
+
+### Use Cases:
+- Counting occurrences of elements.
+- Grouping data by keys.
+- Providing default values for missing keys in a dictionary.
+
+### Notes:
+- The `defaultdict` is particularly useful when working with collections like lists, sets, or counters.
+- It is a subclass of `dict`, so it supports all dictionary methods.
+- The `default_factory` is only called when a missing key is accessed.
+
+---
+
+## `OrderedDict` in Python
+
+The `OrderedDict` is part of the `collections` module in Python. It is a dictionary subclass that maintains the order of key-value pairs based on their insertion order. However, starting from Python 3.7, the built-in `dict` also preserves insertion order, making `OrderedDict` redundant in many cases.
+
+### Syntax:
+```python
+from collections import OrderedDict
+
+OrderedDict()
+```
+
+### Key Features:
+1. Maintains the order of insertion for key-value pairs.
+2. Provides additional methods like `move_to_end()` for reordering keys.
+
+### Example 1: Basic Usage
+```python
+from collections import OrderedDict
+
+# Create an OrderedDict
+ordered_dict = OrderedDict()
+ordered_dict['a'] = 1
+ordered_dict['b'] = 2
+ordered_dict['c'] = 3
+
+print(ordered_dict)  # Output: OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+```
+
+### Example 2: Comparing `OrderedDict` and `dict`
+```python
+from collections import OrderedDict
+
+# OrderedDict preserves order
+od = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+print(od)  # Output: OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+
+# Regular dict (Python 3.7+) also preserves order
+d = {'a': 1, 'b': 2, 'c': 3}
+print(d)  # Output: {'a': 1, 'b': 2, 'c': 3}
+```
+
+### Example 3: Using `move_to_end()`
+```python
+from collections import OrderedDict
+
+od = OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+od.move_to_end('a')  # Move 'a' to the end
+print(od)  # Output: OrderedDict([('b', 2), ('c', 3), ('a', 1)])
+```
+
+### Notes:
+- Use `OrderedDict` only if you need additional methods like `move_to_end()` or are working with Python versions earlier than 3.7.
+
+---
+
+## `namedtuple` in Python
+
+The `namedtuple` is part of the `collections` module in Python. It is a factory function for creating lightweight, immutable object types with named fields. It is useful for creating simple classes without explicitly defining them.
+
+### Syntax:
+```python
+from collections import namedtuple
+
+namedtuple(typename, field_names)
+```
+
+- **`typename`**: The name of the new class.
+- **`field_names`**: A list or string of field names.
+
+### Key Features:
+1. Provides named fields for better readability.
+2. Immutable, like tuples.
+3. Lightweight and memory-efficient.
+
+### Example 1: Creating a `namedtuple`
+```python
+from collections import namedtuple
+
+# Define a namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+
+# Create an instance
+p = Point(10, 20)
+
+print(p)  # Output: Point(x=10, y=20)
+print(p.x, p.y)  # Output: 10 20
+```
+
+### Example 2: Accessing Fields
+```python
+from collections import namedtuple
+
+Person = namedtuple('Person', 'name age')
+person = Person(name='Alice', age=30)
+
+print(person.name)  # Output: Alice
+print(person.age)   # Output: 30
+```
+
+### Example 3: Converting to a Dictionary
+```python
+from collections import namedtuple
+
+Person = namedtuple('Person', 'name age')
+person = Person(name='Alice', age=30)
+
+# Convert to a dictionary
+print(person._asdict())  # Output: {'name': 'Alice', 'age': 30}
+```
+
+### Example 4: Replacing Values
+```python
+from collections import namedtuple
+
+Person = namedtuple('Person', 'name age')
+person = Person(name='Alice', age=30)
+
+# Replace a field value
+new_person = person._replace(age=31)
+print(new_person)  # Output: Person(name='Alice', age=31)
+```
+
+### Use Cases:
+- Representing simple data structures like points, coordinates, or records.
+- Replacing dictionaries for better readability and immutability.
+
+### Notes:
+- `namedtuple` is immutable, so fields cannot be modified after creation.
+- For more complex use cases, consider using `dataclasses` (introduced in Python 3.7).
+
+---
+
+## `heapq` Module in Python
+
+The `heapq` module provides an implementation of the heap queue algorithm, also known as the priority queue algorithm. A heap is a binary tree-based data structure where the parent node is always smaller (min-heap) or larger (max-heap) than its child nodes. The `heapq` module in Python implements a min-heap by default.
+
+### Key Features:
+1. Efficiently supports heap operations like push, pop, and peek.
+2. Provides functions to convert a list into a heap.
+3. Useful for implementing priority queues.
+
+---
+
+### Key Operations in `heapq`
+
+#### 1. **Push and Pop**
+- **`heapq.heappush(heap, item)`**: Adds an item to the heap while maintaining the heap property.
+- **`heapq.heappop(heap)`**: Removes and returns the smallest item from the heap.
+
+**Example:**
+```python
+import heapq
+
+heap = []
+heapq.heappush(heap, 10)
+heapq.heappush(heap, 5)
+heapq.heappush(heap, 15)
+
+print(heap)  # Output: [5, 10, 15] (smallest item is at the root)
+
+smallest = heapq.heappop(heap)
+print(smallest)  # Output: 5
+print(heap)  # Output: [10, 15]
+```
+
+---
+
+#### 2. **Heapify**
+- **`heapq.heapify(iterable)`**: Converts a list into a valid heap in-place in $O(n)$ time.
+
+**Example:**
+```python
+import heapq
+
+nums = [3, 1, 4, 1, 5, 9]
+heapq.heapify(nums)
+
+print(nums)  # Output: [1, 1, 4, 3, 5, 9] (a valid min-heap)
+```
+
+---
+
+#### 3. **Peek**
+- Access the smallest item without removing it using `heap[0]`.
+
+**Example:**
+```python
+import heapq
+
+heap = [1, 3, 5, 7, 9]
+heapq.heapify(heap)
+
+print(heap[0])  # Output: 1 (smallest item)
+```
+
+---
+
+### Additional Operations
+
+#### 4. **Push and Pop in One Step**
+- **`heapq.heappushpop(heap, item)`**: Pushes a new item onto the heap and then pops and returns the smallest item.
+
+**Example:**
+```python
+import heapq
+
+heap = [10, 20, 30]
+heapq.heapify(heap)
+
+result = heapq.heappushpop(heap, 5)
+print(result)  # Output: 5
+print(heap)    # Output: [10, 20, 30]
+```
+
+---
+
+#### 5. **Replace**
+- **`heapq.heapreplace(heap, item)`**: Pops and returns the smallest item, then pushes a new item onto the heap. This is more efficient than calling `heappop()` followed by `heappush()`.
+
+**Example:**
+```python
+import heapq
+
+heap = [10, 20, 30]
+heapq.heapify(heap)
+
+result = heapq.heapreplace(heap, 5)
+print(result)  # Output: 10
+print(heap)    # Output: [5, 20, 30]
+```
+
+---
+
+#### 6. **Finding the Largest or Smallest Items**
+- **`heapq.nlargest(n, iterable)`**: Returns the `n` largest elements from the iterable.
+- **`heapq.nsmallest(n, iterable)`**: Returns the `n` smallest elements from the iterable.
+
+**Example:**
+```python
+import heapq
+
+nums = [1, 3, 5, 7, 9, 2, 4, 6, 8, 0]
+
+largest = heapq.nlargest(3, nums)
+smallest = heapq.nsmallest(3, nums)
+
+print(largest)  # Output: [9, 8, 7]
+print(smallest)  # Output: [0, 1, 2]
+```
+
+---
+
+### Use Cases:
+- Priority queues.
+- Finding the smallest or largest elements in a dataset.
+- Sorting data efficiently.
+
+### Notes:
+- The `heapq` module implements a min-heap by default. To implement a max-heap, you can use negative values or a custom wrapper.
+- Heaps are not sorted; they only guarantee that the smallest element is at the root.
+
+---
+
+## Object-Oriented Programming (OOP) in Python
+
+OOP is a programming paradigm based on the concept of "objects," which can encapsulate data (attributes) and behavior (methods). Python is a multi-paradigm language that supports OOP, making it highly flexible for designing reusable and modular code.
+
+---
+
+### Key OOP Concepts:
+
+#### 1. **Class**
+A blueprint for creating objects. Defines attributes (data) and methods (functions).
+
+```python
+class MLModel:
+    def __init__(self, name, version):
+        self.name = name
+        self.version = version
+
+    def train(self, data):
+        print(f"Training {self.name} version {self.version} on data...")
+
+model = MLModel("Linear Regression", "1.0")
+model.train(data="dataset.csv")
+```
+
+#### 2. **Object**
+An instance of a class. Created using the class constructor.
+
+#### 3. **Encapsulation**
+Restricts direct access to some attributes and methods. Achieved using private (`_attribute`) or protected (`__attribute`) members.
+
+```python
+class MLModel:
+    def __init__(self, name):
+        self.__name = name  # Private attribute
+
+    def get_name(self):
+        return self.__name
+
+model = MLModel("Decision Tree")
+print(model.get_name())  # Access private attribute via a method
+```
+
+#### 4. **Inheritance**
+Allows a class to inherit attributes and methods from another class. Promotes code reuse.
+
+```python
+class BaseModel:
+    def __init__(self, name):
+        self.name = name
+
+    def train(self):
+        print(f"Training {self.name}...")
+
+class AdvancedModel(BaseModel):
+    def evaluate(self):
+        print(f"Evaluating {self.name}...")
+
+model = AdvancedModel("Neural Network")
+model.train()
+model.evaluate()
+```
+
+#### 5. **Polymorphism**
+Allows methods to be defined in multiple forms. Achieved through method overriding or operator overloading.
+
+```python
+class BaseModel:
+    def train(self):
+        print("Training base model...")
+
+class AdvancedModel(BaseModel):
+    def train(self):
+        print("Training advanced model...")
+
+model = AdvancedModel()
+model.train()  # Output: Training advanced model...
+```
+
+#### 6. **Abstraction**
+Hides implementation details and exposes only the essential features. Achieved using abstract base classes (ABCs).
+
+```python
+from abc import ABC, abstractmethod
+
+class Model(ABC):
+    @abstractmethod
+    def train(self):
+        pass
+
+class SVM(Model):
+    def train(self):
+        print("Training SVM...")
+
+model = SVM()
+model.train()
+```
+
+---
+
+## Magic Methods in Python
+
+Magic methods (also called dunder methods) are special methods in Python that start and end with double underscores (`__`). They enable the customization of built-in operations for user-defined classes.
+
+### Common Magic Methods:
+
+#### 1. **Initialization and Representation**
+- `__init__(self, ...)`: Initializes an object.
+- `__repr__(self)`: Provides an official string representation of the object.
+- `__str__(self)`: Provides a user-friendly string representation.
+
+```python
+class MLModel:
+    def __init__(self, name, version):
+        self.name = name
+        self.version = version
+
+    def __repr__(self):
+        return f"MLModel(name={self.name}, version={self.version})"
+
+model = MLModel("Random Forest", "2.0")
+print(model)  # Output: MLModel(name=Random Forest, version=2.0)
+```
+
+#### 2. **Arithmetic Operations**
+- `__add__(self, other)`: Defines behavior for `+`.
+- `__sub__(self, other)`: Defines behavior for `-`.
+- `__mul__(self, other)`: Defines behavior for `*`.
+
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+
+v1 = Vector(1, 2)
+v2 = Vector(3, 4)
+print(v1 + v2)  # Output: Vector(4, 6)
+```
+
+#### 3. **Comparison Operations**
+- `__eq__(self, other)`: Defines behavior for `==`.
+- `__lt__(self, other)`: Defines behavior for `<`.
+- `__gt__(self, other)`: Defines behavior for `>`.
+
+```python
+class Model:
+    def __init__(self, accuracy):
+        self.accuracy = accuracy
+
+    def __lt__(self, other):
+        return self.accuracy < other.accuracy
+
+m1 = Model(0.85)
+m2 = Model(0.90)
+print(m1 < m2)  # Output: True
+```
+
+#### 4. **Container-Like Behavior**
+- `__getitem__(self, key)`: Enables indexing.
+- `__setitem__(self, key, value)`: Enables item assignment.
+- `__len__(self)`: Returns the length of the object.
+
+```python
+class Dataset:
+    def __init__(self, data):
+        self.data = data
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __len__(self):
+        return len(self.data)
+
+dataset = Dataset([1, 2, 3, 4])
+print(dataset[1])   # Output: 2
+print(len(dataset)) # Output: 4
+```
+
+#### 5. **Context Management**
+- `__enter__(self)`: Defines behavior for entering a context.
+- `__exit__(self, exc_type, exc_value, traceback)`: Defines behavior for exiting a context.
+
+```python
+class FileManager:
+    def __init__(self, filename, mode):
+        self.file = open(filename, mode)
+
+    def __enter__(self):
+        return self.file
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.file.close()
+
+with FileManager("example.txt", "w") as f:
+    f.write("Hello, World!")
+```
+
+---
+
+### OOP and Magic Methods in ML Engineering
+
+1. **Encapsulation**: Use classes to encapsulate preprocessing, training, and evaluation logic. Example: A `Pipeline` class that combines multiple steps.
+2. **Inheritance**: Create base classes for models (e.g., `BaseModel`) and extend them for specific algorithms.
+3. **Magic Methods**:
+   - Use `__repr__` for clear model representations.
+   - Implement `__add__` or `__mul__` for combining or scaling feature vectors.
+4. **Context Management**: Use `__enter__` and `__exit__` for managing resources like file handles or GPU memory.
+
+---
+
+## Encapsulation in Python
+
+Encapsulation is one of the fundamental principles of Object-Oriented Programming (OOP). It refers to the bundling of data (attributes) and methods (functions) that operate on the data into a single unit, typically a class. Encapsulation restricts direct access to some of the object's components, ensuring controlled access and protecting the integrity of the data.
+
+---
+
+### Key Features of Encapsulation:
+
+1. **Data Hiding**: Encapsulation allows you to hide the internal state of an object from the outside world. This is achieved by making attributes private or protected.
+2. **Controlled Access**: Access to the internal state is provided through getter and setter methods. This ensures that the data is accessed or modified in a controlled manner.
+3. **Improved Security**: By restricting direct access, encapsulation prevents unintended interference or misuse of the data.
+
+---
+
+### Access Modifiers in Python:
+
+Python provides three levels of access control for attributes and methods:
+
+1. **Public Members**: Accessible from anywhere. Defined without any leading underscores. Example: `self.attribute`.
+2. **Protected Members**: Accessible within the class and its subclasses. Defined with a single leading underscore (`_`). Example: `self._attribute`.
+3. **Private Members**: Accessible only within the class. Defined with a double leading underscore (`__`). Example: `self.__attribute`.
+
+---
+
+### Examples of Encapsulation:
+
+#### 1. **Public Members**:
+```python
+class MLModel:
+    def __init__(self, name):
+        self.name = name  # Public attribute
+
+    def display_name(self):
+        print(f"Model Name: {self.name}")
+
+model = MLModel("Linear Regression")
+model.display_name()  # Output: Model Name: Linear Regression
+print(model.name)     # Output: Linear Regression
+```
+
+#### 2. **Protected Members**:
+```python
+class MLModel:
+    def __init__(self, name):
+        self._name = name  # Protected attribute
+
+    def _display_name(self):  # Protected method
+        print(f"Model Name: {self._name}")
+
+class AdvancedModel(MLModel):
+    def show_name(self):
+        self._display_name()  # Accessing protected method
+
+model = AdvancedModel("Neural Network")
+model.show_name()  # Output: Model Name: Neural Network
+```
+
+#### 3. **Private Members**:
+```python
+class MLModel:
+    def __init__(self, name):
+        self.__name = name  # Private attribute
+
+    def __display_name(self):  # Private method
+        print(f"Model Name: {self.__name}")
+
+    def show_name(self):
+        self.__display_name()  # Accessing private method within the class
+
+model = MLModel("Decision Tree")
+model.show_name()  # Output: Model Name: Decision Tree
+# print(model.__name)  # AttributeError: 'MLModel' object has no attribute '__name'
+```
+
+#### 4. **Using Getter and Setter Methods**:
+```python
+class MLModel:
+    def __init__(self, name):
+        self.__name = name  # Private attribute
+
+    # Getter method
+    def get_name(self):
+        return self.__name
+
+    # Setter method
+    def set_name(self, name):
+        if isinstance(name, str):
+            self.__name = name
+        else:
+            print("Invalid name. Must be a string.")
+
+model = MLModel("Random Forest")
+print(model.get_name())  # Output: Random Forest
+
+model.set_name("Gradient Boosting")
+print(model.get_name())  # Output: Gradient Boosting
+```
+
+---
+
+### Why is Encapsulation Important?
+
+1. **Data Integrity**: Prevents accidental modification of data by restricting direct access. Ensures that data is modified only through controlled methods.
+2. **Code Maintainability**: Makes the code modular and easier to maintain. Changes to the internal implementation do not affect external code.
+3. **Security**: Protects sensitive data from being accessed or modified directly.
+4. **Reusability**: Allows you to create reusable components by hiding implementation details.
+
+---
+
+### Encapsulation in Machine Learning Engineering:
+
+1. **Model Pipelines**: Encapsulate preprocessing, training, and evaluation steps into a single class. Example: A `Pipeline` class that hides the details of data transformations and model training.
+2. **Hyperparameter Tuning**: Use encapsulation to manage hyperparameters as private attributes, exposing only necessary methods for tuning.
+3. **Data Security**: Protect sensitive data (e.g., API keys, credentials) by encapsulating them within classes.
+4. **Reusable Components**: Encapsulate common ML utilities (e.g., feature scaling, data splitting) into reusable classes.
+
