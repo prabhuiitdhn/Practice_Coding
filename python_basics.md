@@ -1,5 +1,19 @@
 # Python Basics - Interview Revision Guide
-
+## 1. Data Types & Mutability
+## 2. Lists, Tuples, Sets, Dicts (with time complexities)
+## 3.Strings (operations + the join tip)
+## 4.Comprehensions & Generators
+## 5. **Functions, *args, kwargs, LEGB scope
+## 6. Big-O Summary Table
+## 7. Stacks & Queues
+## 8. Linked Lists
+## 9. Hash Map Internals
+## 10. Trees & Graphs (BFS/DFS)
+## 11. DSA Patterns (Two Pointers, Sliding Window, Binary Search, Backtracking)
+## 12. Sorting Algorithms Comparison
+## 13. Lambda/Map/Filter, Collections, Heaps
+## 14. OOP & Magic Methods
+## 15. Useful Built-ins
 ---
 
 ## 1. Data Types & Mutability
@@ -2077,4 +2091,162 @@ print(first_10)
 3. **Best Practices**:
    - Combine generators and comprehensions to balance memory efficiency and performance.
    - Use `itertools` for advanced processing of large datasets.
+
+---
+
+### Flatten a 2D List, Infinite Sequences & Data Pipelines
+
+**Q1: Write a list comprehension to flatten a 2D list.**
+**Q2: How would you use a generator to implement an infinite sequence (e.g., Fibonacci numbers)?**
+**Q3: How can you use a comprehension or generator to filter and transform data in a pipeline?**
+
+---
+
+### 1. Write a List Comprehension to Flatten a 2D List
+
+Flattening a 2D list means converting a list of lists into a single list containing all the elements. A list comprehension can achieve this in a concise and efficient way.
+
+#### Example:
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [item for row in matrix for item in row]
+print(flattened)
+```
+
+**Output:**
+```
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+**Explanation:**
+- The outer loop `for row in matrix` iterates over each sublist in the 2D list.
+- The inner loop `for item in row` iterates over each element in the current sublist.
+- The `item` is added to the resulting list.
+
+This approach is concise and avoids the need for nested loops.
+
+---
+
+### 2. How Would You Use a Generator to Implement an Infinite Sequence (e.g., Fibonacci Numbers)?
+
+A generator is ideal for implementing infinite sequences because it generates values lazily, one at a time, without storing the entire sequence in memory.
+
+#### Example: Fibonacci Sequence Generator
+```python
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+# Using the generator
+fib = fibonacci()
+for _ in range(10):  # Print the first 10 Fibonacci numbers
+    print(next(fib), end=" ")
+```
+
+**Output:**
+```
+0 1 1 2 3 5 8 13 21 34
+```
+
+**Explanation:**
+- The `while True` loop ensures the generator runs indefinitely.
+- The `yield` statement produces the next value in the sequence and pauses the function until the next value is requested.
+- The variables `a` and `b` are updated to generate the next Fibonacci number.
+
+This approach is memory-efficient because only the current and next numbers are stored.
+
+---
+
+### 3. How Can You Use a Comprehension or Generator to Filter and Transform Data in a Pipeline?
+
+#### Example: Filtering and Transforming Data with a List Comprehension
+Suppose you have a list of numbers, and you want to filter out odd numbers and square the even numbers:
+```python
+numbers = [1, 2, 3, 4, 5, 6]
+result = [x**2 for x in numbers if x % 2 == 0]
+print(result)
+```
+
+**Output:**
+```
+[4, 16, 36]
+```
+
+**Explanation:**
+- The condition `if x % 2 == 0` filters out odd numbers.
+- The expression `x**2` transforms the even numbers by squaring them.
+
+---
+
+#### Example: Filtering and Transforming Data with a Generator
+For large datasets, you can use a generator to process data lazily:
+```python
+numbers = range(1, 1000000)  # Large dataset
+
+# Generator for filtering and transforming
+filtered_transformed = (x**2 for x in numbers if x % 2 == 0)
+
+# Process the first 5 results
+for _ in range(5):
+    print(next(filtered_transformed))
+```
+
+**Output:**
+```
+4
+16
+36
+64
+100
+```
+
+**Explanation:**
+- The generator `(x**2 for x in numbers if x % 2 == 0)` filters and transforms the data lazily.
+- Only the first 5 results are computed and printed, saving memory.
+
+---
+
+#### Example: Chaining Generators in a Pipeline
+```python
+numbers = range(1, 100)
+
+# Stage 1: Filter even numbers
+filtered = (x for x in numbers if x % 2 == 0)
+
+# Stage 2: Square the filtered numbers
+squared = (x**2 for x in filtered)
+
+# Stage 3: Convert to strings
+stringified = (str(x) for x in squared)
+
+# Process the pipeline
+for result in stringified:
+    print(result, end=", ")
+```
+
+**Output:**
+```
+4, 16, 36, 64, 100, 144, 196, 256, 324, 400, ...
+```
+
+**Explanation:**
+- Each generator processes data lazily, passing results to the next stage.
+- This approach is memory-efficient and allows you to process large datasets in a modular way.
+
+---
+
+### Key Takeaways:
+1. **List Comprehensions**:
+   - Use for small to medium datasets when you need to store all results in memory.
+   - Ideal for simple filtering and transformation tasks.
+
+2. **Generators**:
+   - Use for large datasets or infinite sequences to save memory.
+   - Process data lazily, generating items one at a time.
+
+3. **Chaining Generators**:
+   - Create multi-stage pipelines for complex data processing tasks.
+   - Each stage processes data lazily, making it efficient for large datasets.
 
