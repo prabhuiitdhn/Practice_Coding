@@ -8,3 +8,4 @@ class MLModel:
 
 model = MLModel("Random Forest", "2.0")
 print(model)  # Output: MLModel(name=Random Forest, version=2.0)
+print(repr(model))
