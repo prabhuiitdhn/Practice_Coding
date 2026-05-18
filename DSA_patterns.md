@@ -544,9 +544,9 @@ def bfs_shortest_path(graph, start, end):
 3. **Anticipate follow-ups** — "Can you optimize space?", "What if the input is a stream?", "How does this scale to distributed data?"
 
 ### **Common Patterns to Recognize**
-Sliding Window: Subarray problems.
-Two Pointers: Sorted arrays, linked lists.
-Hash Maps/Sets: Frequency counting, lookups.
-Dynamic Programming: Optimization problems.
-Binary Search: Sorted data, search spaces.
-Graph Traversal: Connectivity, shortest paths.
+1. Sliding Window: Subarray problems.
+2. Two Pointers: Sorted arrays, linked lists.
+3. Hash Maps/Sets: Frequency counting, lookups.
+4. Dynamic Programming: Optimization problems.
+5. Binary Search: Sorted data, search spaces.
+6. Graph Traversal: Connectivity, shortest paths.
