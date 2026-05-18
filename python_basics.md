@@ -3693,3 +3693,1052 @@ print(model.name)  # Output: Support Vector Machine
 3. **Custom Layers in Deep Learning**: Use abstraction to define a base class for custom layers in deep learning frameworks like TensorFlow or PyTorch.
 4. **Reusable Components**: Abstract common functionality (e.g., data preprocessing, feature engineering) into base classes for reuse across projects.
 
+---
+
+### Q: What are the most useful built-in functions in Python?
+
+**Answer:**
+
+Python provides a rich set of built-in functions that simplify common tasks. These functions are always available and do not require importing any modules. Below are some of the most useful built-ins:
+
+---
+
+#### **1. `len()`**
+- **Description**: Returns the length (number of items) of an object.
+- **Example**:
+  ```python
+  print(len([1, 2, 3]))  # Output: 3
+  print(len("hello"))    # Output: 5
+  ```
+
+---
+
+#### **2. `type()`**
+- **Description**: Returns the type of an object.
+- **Example**:
+  ```python
+  print(type(42))        # Output: <class 'int'>
+  print(type([1, 2, 3])) # Output: <class 'list'>
+  ```
+
+---
+
+#### **3. `isinstance()`**
+- **Description**: Checks if an object is an instance of a class or a subclass.
+- **Example**:
+  ```python
+  print(isinstance(42, int))        # Output: True
+  print(isinstance("hello", str))  # Output: True
+  ```
+
+---
+
+#### **4. `enumerate()`**
+- **Description**: Adds an index to an iterable and returns it as an enumerate object.
+- **Example**:
+  ```python
+  for index, value in enumerate(["a", "b", "c"]):
+      print(index, value)
+  # Output:
+  # 0 a
+  # 1 b
+  # 2 c
+  ```
+
+---
+
+#### **5. `zip()`**
+- **Description**: Combines two or more iterables into tuples.
+- **Example**:
+  ```python
+  names = ["Alice", "Bob"]
+  scores = [85, 90]
+  print(list(zip(names, scores)))
+  # Output: [('Alice', 85), ('Bob', 90)]
+  ```
+
+---
+
+#### **6. `map()`**
+- **Description**: Applies a function to all items in an iterable.
+- **Example**:
+  ```python
+  nums = [1, 2, 3]
+  squares = map(lambda x: x**2, nums)
+  print(list(squares))  # Output: [1, 4, 9]
+  ```
+
+---
+
+#### **7. `filter()`**
+- **Description**: Filters items in an iterable based on a function.
+- **Example**:
+  ```python
+  nums = [1, 2, 3, 4]
+  evens = filter(lambda x: x % 2 == 0, nums)
+  print(list(evens))  # Output: [2, 4]
+  ```
+
+---
+
+#### **8. `sorted()`**
+- **Description**: Returns a sorted list from an iterable.
+- **Example**:
+  ```python
+  nums = [3, 1, 4, 2]
+  print(sorted(nums))  # Output: [1, 2, 3, 4]
+  ```
+
+---
+
+#### **9. `reversed()`**
+- **Description**: Returns a reversed iterator of a sequence.
+- **Example**:
+  ```python
+  nums = [1, 2, 3]
+  print(list(reversed(nums)))  # Output: [3, 2, 1]
+  ```
+
+---
+
+#### **10. `all()` and `any()`**
+- **Description**:
+  - `all()`: Returns `True` if all elements in an iterable are `True`.
+  - `any()`: Returns `True` if any element in an iterable is `True`.
+- **Example**:
+  ```python
+  nums = [1, 2, 3]
+  print(all(nums))  # Output: True
+  print(any(nums))  # Output: True
+  ```
+
+---
+
+#### **11. `min()` and `max()`**
+- **Description**: Returns the smallest or largest item in an iterable.
+- **Example**:
+  ```python
+  nums = [1, 2, 3]
+  print(min(nums))  # Output: 1
+  print(max(nums))  # Output: 3
+  ```
+
+---
+
+#### **12. `sum()`**
+- **Description**: Returns the sum of all items in an iterable.
+- **Example**:
+  ```python
+  nums = [1, 2, 3]
+  print(sum(nums))  # Output: 6
+  ```
+
+---
+
+#### **13. `range()`**
+- **Description**: Generates a sequence of numbers.
+- **Example**:
+  ```python
+  for i in range(3):
+      print(i)
+  # Output:
+  # 0
+  # 1
+  # 2
+  ```
+
+---
+
+#### **14. `input()`**
+- **Description**: Reads a string from user input.
+- **Example**:
+  ```python
+  name = input("Enter your name: ")
+  print(f"Hello, {name}!")
+  ```
+
+---
+
+#### **15. `print()`**
+- **Description**: Prints objects to the console.
+- **Example**:
+  ```python
+  print("Hello, World!")  # Output: Hello, World!
+  ```
+
+---
+
+These built-in functions are powerful tools that can simplify your Python code.
+
+---
+
+### Q: Explain `enumerate()` and `zip()` in detail for a senior-level research role interview.
+
+**Answer:**
+
+---
+
+#### **1. `enumerate()`**
+
+**Description**:  
+The `enumerate()` function adds an index to an iterable and returns it as an `enumerate` object. This is particularly useful when you need both the index and the value of items in an iterable during iteration.
+
+---
+
+**Syntax**:
+```python
+enumerate(iterable, start=0)
+```
+- **`iterable`**: The sequence (e.g., list, tuple, string) to enumerate.
+- **`start`**: The starting index for enumeration (default is `0`).
+
+---
+
+**Key Features**:
+1. **Efficient**: `enumerate()` does not create a new list; it generates an iterator, making it memory-efficient.
+2. **Customizable Start**: You can specify the starting index, which is useful for custom indexing.
+3. **Versatile**: Works with any iterable, including lists, tuples, strings, and even generators.
+
+---
+
+**Example**:
+```python
+# Basic usage
+items = ["apple", "banana", "cherry"]
+for index, value in enumerate(items):
+    print(index, value)
+# Output:
+# 0 apple
+# 1 banana
+# 2 cherry
+
+# Custom start index
+for index, value in enumerate(items, start=1):
+    print(index, value)
+# Output:
+# 1 apple
+# 2 banana
+# 3 cherry
+```
+
+---
+
+**Advanced Use Cases**:
+1. **Tracking Progress in Loops**:
+   ```python
+   data = [10, 20, 30]
+   for i, value in enumerate(data):
+       print(f"Processing item {i}: {value}")
+   ```
+
+2. **Parallel Iteration with Multiple Enumerations**:
+   ```python
+   items = ["a", "b", "c"]
+   for i, (x, y) in enumerate(zip(items, range(3))):
+       print(f"Index {i}: {x}, {y}")
+   # Output:
+   # Index 0: a, 0
+   # Index 1: b, 1
+   # Index 2: c, 2
+   ```
+
+3. **Error Reporting**:
+   ```python
+   data = [1, 2, 0, 4]
+   for i, value in enumerate(data):
+       if value == 0:
+           print(f"Error: Zero value at index {i}")
+   ```
+
+4. **Data Transformation**:
+   ```python
+   items = ["a", "b", "c"]
+   indexed_items = [(i, x.upper()) for i, x in enumerate(items)]
+   print(indexed_items)
+   # Output: [(0, 'A'), (1, 'B'), (2, 'C')]
+   ```
+
+---
+
+**Performance Considerations**:
+- `enumerate()` is implemented in C, making it faster than manually maintaining an index variable.
+- It is memory-efficient because it generates an iterator instead of creating a new list.
+
+---
+
+#### **2. `zip()`**
+
+**Description**:  
+The `zip()` function combines two or more iterables into tuples, where each tuple contains one element from each iterable. The resulting object is a `zip` object, which is an iterator.
+
+---
+
+**Syntax**:
+```python
+zip(*iterables)
+```
+- **`*iterables`**: One or more iterables (e.g., lists, tuples, strings).
+
+---
+
+**Key Features**:
+1. **Combines Iterables**: Groups elements from multiple iterables into tuples.
+2. **Stops at Shortest Iterable**: If the iterables have different lengths, `zip()` stops at the shortest one.
+3. **Memory-Efficient**: Returns an iterator instead of creating a new list.
+
+---
+
+**Example**:
+```python
+# Basic usage
+names = ["Alice", "Bob", "Charlie"]
+scores = [85, 90, 95]
+zipped = zip(names, scores)
+print(list(zipped))
+# Output: [('Alice', 85), ('Bob', 90), ('Charlie', 95)]
+```
+
+---
+
+**Advanced Use Cases**:
+1. **Unzipping**:
+   ```python
+   zipped = [('Alice', 85), ('Bob', 90), ('Charlie', 95)]
+   names, scores = zip(*zipped)
+   print(names)  # Output: ('Alice', 'Bob', 'Charlie')
+   print(scores) # Output: (85, 90, 95)
+   ```
+
+2. **Parallel Iteration**:
+   ```python
+   names = ["Alice", "Bob", "Charlie"]
+   scores = [85, 90, 95]
+   for name, score in zip(names, scores):
+       print(f"{name} scored {score}")
+   # Output:
+   # Alice scored 85
+   # Bob scored 90
+   # Charlie scored 95
+   ```
+
+3. **Handling Unequal Lengths**:
+   ```python
+   from itertools import zip_longest
+   names = ["Alice", "Bob"]
+   scores = [85, 90, 95]
+   for name, score in zip_longest(names, scores, fillvalue="N/A"):
+       print(name, score)
+   # Output:
+   # Alice 85
+   # Bob 90
+   # N/A 95
+   ```
+
+4. **Dict from Two Lists**:
+   ```python
+   names = ["Alice", "Bob", "Charlie"]
+   scores = [85, 90, 95]
+   result = {name: score for name, score in zip(names, scores)}
+   print(result)
+   # Output: {'Alice': 85, 'Bob': 90, 'Charlie': 95}
+   ```
+
+5. **Matrix Transposition**:
+   ```python
+   matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+   transposed = list(zip(*matrix))
+   print(transposed)
+   # Output: [(1, 4, 7), (2, 5, 8), (3, 6, 9)]
+   ```
+
+---
+
+**Performance Considerations**:
+- `zip()` is implemented in C, making it highly efficient.
+- It is memory-efficient because it generates an iterator instead of creating a new list.
+
+---
+
+**Comparison of `enumerate()` and `zip()`**:
+
+| Feature                | `enumerate()`                          | `zip()`                              |
+|------------------------|-----------------------------------------|--------------------------------------|
+| **Purpose**            | Adds an index to an iterable           | Combines multiple iterables          |
+| **Output**             | `enumerate` object (index, value)      | `zip` object (tuples of elements)    |
+| **Stops at Shortest?** | Not applicable                         | Yes                                  |
+| **Use Case**           | Iterating with indices                 | Parallel iteration, data combination |
+
+---
+
+**Key Takeaways for Senior-Level Interviews**:
+1. **`enumerate()`**:
+   - Use when you need indices while iterating over a sequence.
+   - Combine with other iterables for advanced iteration patterns.
+   - Efficient and memory-friendly for large datasets.
+
+2. **`zip()`**:
+   - Use for parallel iteration or combining data from multiple sources.
+   - Handle unequal lengths with `itertools.zip_longest()`.
+   - Useful for data transformations, matrix operations, and unzipping.
+
+Both functions are fundamental tools for writing clean, efficient, and Pythonic code. Mastery of these functions demonstrates a deep understanding of Python's iterator protocol and its emphasis on memory efficiency.
+
+---
+
+### Q&A: `input()` — Senior-Level Research Role Interview
+
+**Q: Describe `input()` in detail. How does it work internally, and what are its advanced use cases?**
+
+**A:**
+
+---
+
+### **1. What is `input()`?**
+The `input()` function in Python is used to read a line of text from the user. It pauses program execution until the user provides input and presses Enter. The function always returns the input as a **string**.
+
+#### **Syntax**:
+```python
+input([prompt])
+```
+
+- **`prompt`**: (Optional) A string displayed to the user before taking input. If omitted, no prompt is displayed.
+
+#### **Example**:
+```python
+name = input("Enter your name: ")
+print(f"Hello, {name}!")
+```
+
+---
+
+### **2. Key Characteristics of `input()`**
+1. **Always Returns a String**:
+   - Regardless of the type of data entered, `input()` always returns a string. Explicit type conversion is required for other types.
+   ```python
+   age = input("Enter your age: ")  # Returns a string
+   age = int(age)                   # Convert to integer
+   ```
+
+2. **Blocking Behavior**:
+   - The function blocks program execution until the user provides input and presses Enter.
+
+3. **Prompt Customization**:
+   - You can provide a custom prompt to guide the user on what input is expected.
+
+4. **Error Handling**:
+   - Type conversion on `input()` can raise errors if the input is invalid. Use `try-except` blocks to handle such cases.
+   ```python
+   try:
+       num = int(input("Enter a number: "))
+   except ValueError:
+       print("Invalid input! Please enter a valid number.")
+   ```
+
+---
+
+### **3. Advanced Use Cases**
+
+#### **a. Reading Multiple Inputs**
+Use `split()` to read multiple inputs in a single line.
+```python
+x, y = input("Enter two numbers: ").split()
+x, y = int(x), int(y)
+print(f"Sum: {x + y}")
+```
+
+#### **b. Input Validation with Loops**
+Use loops to repeatedly prompt the user until valid input is provided.
+```python
+while True:
+    try:
+        num = int(input("Enter a valid number: "))
+        break
+    except ValueError:
+        print("Invalid input. Try again.")
+```
+
+#### **c. Reading Input Without a Newline (Advanced)**
+For real-time input (e.g., in games), libraries like `keyboard` or `curses` are used since `input()` requires Enter to be pressed.
+
+---
+
+### **4. Common Pitfalls and Best Practices**
+
+#### **a. Forgetting Type Conversion**
+```python
+# Incorrect
+num = input("Enter a number: ")
+print(num + 10)  # TypeError: cannot concatenate str and int
+
+# Correct
+num = int(input("Enter a number: "))
+print(num + 10)
+```
+
+#### **b. Handling Empty Input**
+```python
+data = input("Enter something: ")
+if not data:
+    print("You entered nothing!")
+```
+
+#### **c. Security Concerns**
+Avoid using `eval()` on user input — it can execute arbitrary code.
+```python
+# Dangerous — never do this
+data = eval(input("Enter a Python expression: "))
+```
+
+---
+
+### **5. How `input()` Works Internally**
+1. **Standard Input Stream**:
+   - `input()` reads from `sys.stdin`. You can redirect or mock `sys.stdin` for testing.
+   ```python
+   import sys
+   from io import StringIO
+
+   sys.stdin = StringIO("mock input")
+   data = input()
+   print(data)  # Outputs: mock input
+   ```
+
+2. **Buffering**:
+   - Input is buffered until the user presses Enter. The program does not process input character by character.
+
+3. **Encoding**:
+   - Input is encoded as a string using the system's default encoding (e.g., UTF-8).
+
+---
+
+### **6. Use Cases in Research and Advanced Applications**
+
+#### **a. Interactive Scripts**
+Used in interactive scripts to gather user input dynamically.
+
+#### **b. Collecting Experiment Parameters**
+```python
+learning_rate = float(input("Enter the learning rate: "))
+epochs = int(input("Enter the number of epochs: "))
+```
+
+#### **c. Mocking User Input for Testing**
+```python
+import builtins
+
+def test_input():
+    builtins.input = lambda _: "mocked input"
+    assert input("Enter something: ") == "mocked input"
+```
+
+---
+
+### **7. Comparison with Other Input Methods**
+
+| Feature                | `input()`                     | `sys.stdin.read()`          | `getpass.getpass()`         |
+|------------------------|-------------------------------|-----------------------------|-----------------------------|
+| **Blocking**           | Yes                           | Yes                         | Yes                         |
+| **Returns**            | String                        | String                      | String                      |
+| **Use Case**           | General input                 | Reading multiple lines      | Secure password input       |
+| **Echo Input**         | Yes                           | Yes                         | No                          |
+| **Custom Prompt**      | Yes                           | No                          | Yes                         |
+
+---
+
+### **8. Key Takeaways for Senior-Level Interviews**
+1. **Basics**: `input()` reads a string from the user and blocks execution until input is provided.
+2. **Type Handling**: Always validate and convert user input to the required type.
+3. **Edge Cases**: Handle empty input, invalid data, and encoding issues gracefully.
+4. **Advanced Scenarios**: Use `split()` for multiple inputs, `try-except` for error handling, and `sys.stdin` for stream redirection/testing.
+5. **Security**: Never use `eval()` on user input — use safe alternatives like `ast.literal_eval()` if expression parsing is needed.
+6. **Testing**: Mock `input()` via `builtins.input` or redirect `sys.stdin` for automated testing pipelines.
+
+---
+
+### Q&A: `all()` and `any()` — Senior-Level Research Role Interview
+
+**Q: Explain `all()` and `any()` in detail. How do they work internally, and what are their advanced use cases?**
+
+**A:**
+
+---
+
+### **1. What are `all()` and `any()`?**
+
+Both are built-in Python functions that operate on iterables and return a boolean result.
+
+| Function | Returns `True` when... | Returns `False` when... |
+|----------|------------------------|-------------------------|
+| `all(iterable)` | **Every** element is truthy (or iterable is empty) | **At least one** element is falsy |
+| `any(iterable)` | **At least one** element is truthy | **Every** element is falsy (or iterable is empty) |
+
+#### **Syntax**:
+```python
+all(iterable)
+any(iterable)
+```
+
+---
+
+### **2. Basic Examples**
+
+```python
+# all()
+print(all([True, True, True]))   # True
+print(all([True, False, True]))  # False
+print(all([]))                   # True  ← vacuous truth (empty iterable)
+
+# any()
+print(any([False, False, True])) # True
+print(any([False, False, False]))# False
+print(any([]))                   # False ← no element to be True
+```
+
+---
+
+### **3. Truthiness in Python**
+Both functions rely on Python's truthy/falsy evaluation, not strict `True`/`False`.
+
+**Falsy values**: `0`, `0.0`, `""`, `[]`, `{}`, `set()`, `None`, `False`
+**Truthy values**: Everything else
+
+```python
+print(all([1, "hello", [1, 2]]))  # True  — all truthy
+print(all([1, 0, "hello"]))       # False — 0 is falsy
+print(any([0, "", None, 42]))     # True  — 42 is truthy
+print(any([0, "", None]))         # False — all falsy
+```
+
+---
+
+### **4. How They Work Internally — Short-Circuit Evaluation**
+
+This is a key senior-level insight.
+
+- **`all()`** stops and returns `False` as soon as it encounters the **first falsy** element. It never evaluates the rest.
+- **`any()`** stops and returns `True` as soon as it encounters the **first truthy** element. It never evaluates the rest.
+
+```python
+def check(x):
+    print(f"Checking {x}")
+    return x > 0
+
+# all() short-circuits at -1
+print(all(check(x) for x in [1, 2, -1, 3, 4]))
+# Output:
+# Checking 1
+# Checking 2
+# Checking -1
+# False   ← stops here, never checks 3 or 4
+
+# any() short-circuits at 2
+print(any(check(x) for x in [-1, 2, 3, 4]))
+# Output:
+# Checking -1
+# Checking 2
+# True    ← stops here
+```
+
+This short-circuit behavior makes them **memory-efficient with generators** — they never need to evaluate the entire iterable.
+
+---
+
+### **5. Using with Generator Expressions (Best Practice)**
+
+Combine with generator expressions to avoid materializing a full list in memory.
+
+```python
+# Check if all numbers in a million-element range are positive
+# BAD — creates full list in memory
+result = all([x > 0 for x in range(1_000_000)])
+
+# GOOD — lazy evaluation, short-circuits on first False
+result = all(x > 0 for x in range(1_000_000))
+```
+
+---
+
+### **6. Common Patterns**
+
+#### **a. Validating all conditions hold**
+```python
+def is_valid_matrix(matrix):
+    return all(len(row) == len(matrix[0]) for row in matrix)
+
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(is_valid_matrix(matrix))  # True
+```
+
+#### **b. Checking if any condition is satisfied**
+```python
+def has_negative(numbers):
+    return any(x < 0 for x in numbers)
+
+print(has_negative([1, 2, -3, 4]))  # True
+print(has_negative([1, 2, 3]))      # False
+```
+
+#### **c. String validation**
+```python
+password = "Secure@123"
+
+is_strong = all([
+    any(c.isupper() for c in password),
+    any(c.isdigit() for c in password),
+    any(c in "@#$%" for c in password),
+    len(password) >= 8
+])
+print(is_strong)  # True
+```
+
+#### **d. Checking subset/superset relationships**
+```python
+required_columns = {"age", "salary", "name"}
+df_columns = {"name", "age", "salary", "department"}
+
+print(all(col in df_columns for col in required_columns))  # True
+```
+
+---
+
+### **7. Edge Cases**
+
+```python
+# Empty iterables
+print(all([]))  # True  ← vacuously true (no element violates the condition)
+print(any([]))  # False ← no element satisfies the condition
+
+# Nested structures
+print(all([[1, 2], [3, 4]]))  # True  — non-empty lists are truthy
+print(all([[1, 2], []]))      # False — empty list is falsy
+
+# Non-boolean values — uses truthiness
+print(all([1, 2, 3]))         # True
+print(all([1, 2, 0]))         # False (0 is falsy)
+```
+
+---
+
+### **8. Equivalence to Explicit Code**
+
+Understanding the underlying logic is critical at senior level:
+
+```python
+# all(iterable) is equivalent to:
+def all_equiv(iterable):
+    for element in iterable:
+        if not element:
+            return False
+    return True
+
+# any(iterable) is equivalent to:
+def any_equiv(iterable):
+    for element in iterable:
+        if element:
+            return True
+    return False
+```
+
+---
+
+### **9. Use Cases in Research / ML Workflows**
+
+#### **a. Data validation before training**
+```python
+features = ["age", "salary", "score"]
+dataframe_columns = df.columns.tolist()
+
+if not all(f in dataframe_columns for f in features):
+    raise ValueError("Missing required features")
+```
+
+#### **b. Early stopping / convergence check**
+```python
+metrics = [0.001, 0.0005, 0.0002]
+converged = all(m < 0.01 for m in metrics)
+```
+
+#### **c. Checking experiment results**
+```python
+results = [0.91, 0.93, 0.89, 0.95]
+all_passed = all(r > 0.85 for r in results)
+any_failed = any(r < 0.85 for r in results)
+```
+
+#### **d. Configuration validation**
+```python
+config = {"lr": 0.001, "epochs": 100, "batch_size": 32}
+required_keys = ["lr", "epochs", "batch_size"]
+
+if not all(k in config for k in required_keys):
+    raise KeyError("Incomplete configuration")
+```
+
+---
+
+### **10. Comparison Table**
+
+| Aspect | `all()` | `any()` |
+|--------|---------|---------|
+| **Returns True** | All elements truthy | At least one truthy |
+| **Returns False** | At least one falsy | All elements falsy |
+| **Empty iterable** | `True` (vacuous truth) | `False` |
+| **Short-circuits on** | First `False` | First `True` |
+| **Logical equivalent** | `e1 AND e2 AND e3 ...` | `e1 OR e2 OR e3 ...` |
+
+---
+
+### **11. Key Takeaways for Senior-Level Interviews**
+1. **Short-circuit evaluation**: Both stop early — `all()` on first `False`, `any()` on first `True`. Critical for performance.
+2. **Use generators, not lists**: `all(expr for x in iterable)` avoids building an intermediate list, making it O(1) in memory.
+3. **Empty iterable behavior**: `all([])` is `True` (vacuously true — no element violates anything); `any([])` is `False`. Interviewers love this edge case.
+4. **Truthiness, not booleans**: They work on any truthy/falsy values, not just strict `True`/`False`.
+5. **Composability**: Can be combined with `map()`, `filter()`, or generator expressions for clean, Pythonic data pipelines.
+6. **Real-world usage**: Data validation, convergence checks, configuration verification, and feature existence checks in ML pipelines.
+
+---
+
+### Q&A: Functions, `*args`, `**kwargs`, and LEGB Scope
+
+**Q: Explain Functions, `*args`, `**kwargs`, and LEGB scope in detail for a senior-level research role interview.**
+
+**A:**
+
+---
+
+### **1. Functions in Python**
+Functions are reusable blocks of code designed to perform a specific task. They are **first-class objects** in Python, meaning they can be passed as arguments, returned from other functions, and assigned to variables — just like any other object.
+
+#### **Key Features of Functions:**
+1. **Defined using `def`:**
+   ```python
+   def greet(name):
+       return f"Hello, {name}!"
+   ```
+2. **Can return values:**
+   ```python
+   def add(a, b):
+       return a + b
+   ```
+3. **Can have default arguments:**
+   ```python
+   def greet(name="Guest"):
+       return f"Hello, {name}!"
+   ```
+4. **Can be nested:**
+   ```python
+   def outer():
+       def inner():
+           return "Inner function"
+       return inner()
+   ```
+5. **Can be anonymous (lambda):**
+   ```python
+   square = lambda x: x ** 2
+   ```
+
+#### **Advanced Use Cases:**
+- **Higher-order functions:** Functions that take other functions as arguments or return them.
+  ```python
+  def apply(func, value):
+      return func(value)
+
+  print(apply(lambda x: x ** 2, 5))  # 25
+  ```
+
+- **Closures:** Functions that capture variables from their enclosing scope.
+  ```python
+  def multiplier(factor):
+      def multiply_by(x):
+          return x * factor
+      return multiply_by
+
+  double = multiplier(2)
+  print(double(5))  # 10
+  ```
+
+---
+
+### **2. `*args` and `**kwargs`**
+
+#### **`*args` (Variable Positional Arguments):**
+- Allows a function to accept **any number of positional arguments**.
+- The arguments are collected into a **tuple**.
+
+```python
+def add(*args):
+    return sum(args)
+
+print(add(1, 2, 3))  # 6
+```
+
+#### **Use Cases:**
+- When the number of arguments is unknown at definition time.
+- Useful for functions like `print()` that accept multiple arguments.
+
+#### **`**kwargs` (Variable Keyword Arguments):**
+- Allows a function to accept **any number of keyword arguments**.
+- The arguments are collected into a **dictionary**.
+
+```python
+def info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+info(name="Alice", age=30)
+# Output:
+# name: Alice
+# age: 30
+```
+
+#### **Use Cases:**
+- When you need to handle named arguments dynamically.
+- Useful for passing configuration options or building flexible APIs.
+
+#### **Combining `*args` and `**kwargs`:**
+You can use both in the same function, but `*args` must come before `**kwargs`.
+
+```python
+def func(a, b, *args, **kwargs):
+    print(f"a: {a}, b: {b}")
+    print(f"args: {args}")
+    print(f"kwargs: {kwargs}")
+
+func(1, 2, 3, 4, x=5, y=6)
+# Output:
+# a: 1, b: 2
+# args: (3, 4)
+# kwargs: {'x': 5, 'y': 6}
+```
+
+---
+
+### **3. LEGB Scope Rule**
+
+The LEGB rule defines the order in which Python looks for variable names:
+
+| Scope | Description |
+|-------|-------------|
+| **L** — Local | Variables defined inside the current function |
+| **E** — Enclosing | Variables in the enclosing function (for nested functions) |
+| **G** — Global | Variables defined at the module level |
+| **B** — Built-in | Python's built-in namespace (e.g., `len`, `print`, `range`) |
+
+#### **Example:**
+```python
+x = "global"
+
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+        print(x)  # "local"
+    inner()
+    print(x)  # "enclosing"
+
+outer()
+print(x)  # "global"
+```
+
+#### **Modifying Variables Across Scopes:**
+- **`global` keyword:** Modify a global variable inside a function.
+  ```python
+  x = 10
+
+  def modify_global():
+      global x
+      x = 20
+
+  modify_global()
+  print(x)  # 20
+  ```
+
+- **`nonlocal` keyword:** Modify a variable in the enclosing scope (not global).
+  ```python
+  def outer():
+      x = "enclosing"
+      def inner():
+          nonlocal x
+          x = "modified"
+      inner()
+      print(x)  # "modified"
+
+  outer()
+  ```
+
+---
+
+### **4. Practical Applications**
+
+#### **`*args` and `**kwargs` in Decorators:**
+```python
+def decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Before function call")
+        result = func(*args, **kwargs)
+        print("After function call")
+        return result
+    return wrapper
+
+@decorator
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+# Output:
+# Before function call
+# Hello, Alice!
+# After function call
+```
+
+#### **LEGB Scope in Closures (Counter Pattern):**
+```python
+def counter():
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment
+
+inc = counter()
+print(inc())  # 1
+print(inc())  # 2
+print(inc())  # 3
+```
+
+#### **Common Pitfall — UnboundLocalError:**
+```python
+x = 10
+
+def func():
+    x = x + 1  # Error: UnboundLocalError
+                # Python sees assignment, treats x as local,
+                # but it is read before assignment
+```
+**Fix:** Use `global x` or pass `x` as an argument.
+
+---
+
+### **5. Key Takeaways for Senior-Level Interviews**
+1. **Functions** are first-class objects — enabling higher-order functions, closures, and decorators.
+2. **`*args`** collects extra positional arguments as a **tuple**; **`**kwargs`** collects extra keyword arguments as a **dict**.
+3. **LEGB** is the lookup chain — Python searches Local → Enclosing → Global → Built-in, in that order.
+4. Use **`global`** to modify global variables and **`nonlocal`** to modify enclosing-scope variables inside nested functions.
+5. Beware of **mutable default arguments** — they are evaluated once at function definition, not on every call.
+   ```python
+   # Bad
+   def append(value, lst=[]):
+       lst.append(value)
+       return lst
+
+   # Good
+   def append(value, lst=None):
+       if lst is None:
+           lst = []
+       lst.append(value)
+       return lst
+   ```
+
+---
+
