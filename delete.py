@@ -1,11 +1,13 @@
-class MLModel:
-    def __init__(self, name, version):
-        self.name = name
-        self.version = version
+def decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Before function call")
+        result = func(*args, **kwargs)
+        print("After function call")
+        return result
+    return wrapper
 
-    def __repr__(self):
-        return f"MLModel(name={self.name}, version={self.version})"
+@decorator
+def greet(name):
+    print(f"Hello, {name}!")
 
-model = MLModel("Random Forest", "2.0")
-print(model)  # Output: MLModel(name=Random Forest, version=2.0)
-print(repr(model))
+greet("Alice")
