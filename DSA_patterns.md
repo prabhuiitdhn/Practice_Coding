@@ -550,3 +550,233 @@ def bfs_shortest_path(graph, start, end):
 4. Dynamic Programming: Optimization problems.
 5. Binary Search: Sorted data, search spaces.
 6. Graph Traversal: Connectivity, shortest paths.
+
+---
+
+## Cyclic Sort — Detailed Explanation
+
+### **What is Cyclic Sort?**
+Cyclic Sort is a pattern used to solve problems involving **numbers in a given range** (e.g., `1` to `n` or `0` to `n`). The core idea is simple: **every number should be placed at the index equal to its value minus one** (i.e., number `x` belongs at index `x - 1`).
+
+Instead of sorting with comparisons (O(n log n)), cyclic sort achieves **O(n)** by directly placing each number at its correct position using swaps.
+
+---
+
+### **Core Idea**
+
+For an array containing numbers in range `[1, n]`:
+- Number `1` belongs at index `0`
+- Number `2` belongs at index `1`
+- Number `k` belongs at index `k - 1`
+
+The algorithm walks through the array. For each position `i`, if `nums[i]` is not at its correct index, **swap it to its correct position**. If it is already correct, move forward.
+
+---
+
+### **Algorithm Template**
+
+```python
+def cyclic_sort(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1          # where nums[i] SHOULD be
+        if nums[i] != nums[correct]:   # not in correct position → swap
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1                     # already correct → move forward
+    return nums
+
+# Example
+print(cyclic_sort([3, 1, 5, 4, 2]))  # Output: [1, 2, 3, 4, 5]
+print(cyclic_sort([2, 6, 4, 3, 1, 5]))  # Output: [1, 2, 3, 4, 5, 6]
+```
+
+**Why not just `i += 1` after every swap?**  
+Because after swapping, the new `nums[i]` might also be out of place. We keep swapping at position `i` until it holds the correct number.
+
+---
+
+### **Time & Space Complexity**
+
+| Complexity | Value | Reason |
+|---|---|---|
+| **Time** | O(n) | Each number is moved to its correct position at most once |
+| **Space** | O(1) | In-place swaps, no extra data structures |
+
+---
+
+### **Problem 1: Find the Missing Number**
+
+Given an array of `n` distinct numbers in range `[0, n]`, find the one missing number.
+
+```python
+def find_missing_number(nums):
+    i, n = 0, len(nums)
+    while i < n:
+        correct = nums[i]
+        # numbers are 0..n, so nums[i] belongs at index nums[i]
+        # skip n because there's no index n in array of size n
+        if nums[i] < n and nums[i] != nums[correct]:
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1
+
+    # After sort, find the index where nums[i] != i
+    for i in range(n):
+        if nums[i] != i:
+            return i
+    return n   # missing number is n itself
+
+# Example
+print(find_missing_number([4, 0, 3, 1]))  # Output: 2
+print(find_missing_number([8, 3, 5, 2, 4, 6, 0, 1]))  # Output: 7
+```
+
+**Key difference from basic cyclic sort**: Range is `[0, n]` so number `x` belongs at index `x` (not `x - 1`). Also, `n` has no valid index, so we skip it.
+
+---
+
+### **Problem 2: Find All Missing Numbers**
+
+Given an array of `n` numbers where some numbers are missing and some appear twice (range `[1, n]`), find all missing numbers.
+
+```python
+def find_all_missing(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1
+        if nums[i] != nums[correct]:
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1
+
+    missing = []
+    for i in range(len(nums)):
+        if nums[i] != i + 1:
+            missing.append(i + 1)
+    return missing
+
+# Example
+print(find_all_missing([2, 3, 1, 8, 2, 3, 5, 1]))  # Output: [4, 6, 7]
+```
+
+---
+
+### **Problem 3: Find the Duplicate Number**
+
+Given an array of `n + 1` numbers in range `[1, n]`, find the one duplicate.
+
+```python
+def find_duplicate(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1
+        if nums[i] != i + 1:
+            if nums[i] != nums[correct]:
+                nums[i], nums[correct] = nums[correct], nums[i]
+            else:
+                return nums[i]   # duplicate found — both positions hold same value
+        else:
+            i += 1
+    return -1
+
+# Example
+print(find_duplicate([1, 4, 4, 3, 2]))  # Output: 4
+print(find_duplicate([2, 1, 3, 3, 5, 4]))  # Output: 3
+```
+
+---
+
+### **Problem 4: Find All Duplicates**
+
+Find all numbers that appear twice in range `[1, n]`.
+
+```python
+def find_all_duplicates(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1
+        if nums[i] != nums[correct]:
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1
+
+    duplicates = []
+    for i in range(len(nums)):
+        if nums[i] != i + 1:
+            duplicates.append(nums[i])
+    return duplicates
+
+# Example
+print(find_all_duplicates([3, 4, 4, 5, 5]))  # Output: [4, 5]
+```
+
+---
+
+### **Problem 5: Find the Smallest Missing Positive**
+
+Given an unsorted array (may contain negatives), find the smallest missing positive integer.
+
+```python
+def smallest_missing_positive(nums):
+    i, n = 0, len(nums)
+    while i < n:
+        correct = nums[i] - 1
+        # Only place nums[i] if it's in range [1, n] and not already correct
+        if 0 < nums[i] <= n and nums[i] != nums[correct]:
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1
+
+    for i in range(n):
+        if nums[i] != i + 1:
+            return i + 1
+    return n + 1   # all positions [1..n] filled, so answer is n+1
+
+# Example
+print(smallest_missing_positive([1, 3, 6, 4, 1, 2]))   # Output: 5
+print(smallest_missing_positive([-3, 1, 5, 4, 2]))     # Output: 3
+print(smallest_missing_positive([1, 2, 3]))             # Output: 4
+```
+
+**Key difference**: Numbers outside `[1, n]` (negatives, zeros, numbers > n) are simply left in place — they can never be a valid answer anyway.
+
+---
+
+### **Summary: Cyclic Sort Variants**
+
+| Problem | Range | `correct` index | Skip condition |
+|---|---|---|---|
+| Basic Cyclic Sort | `[1, n]` | `nums[i] - 1` | `nums[i] == nums[correct]` |
+| Find Missing Number | `[0, n]` | `nums[i]` | `nums[i] >= n` |
+| Find All Missing | `[1, n]` | `nums[i] - 1` | `nums[i] == nums[correct]` |
+| Find Duplicate | `[1, n]` | `nums[i] - 1` | `nums[i] == nums[correct]` → return |
+| Smallest Missing Positive | any | `nums[i] - 1` | `nums[i] < 1 or nums[i] > n` |
+
+---
+
+### **How to Recognize a Cyclic Sort Problem**
+
+Look for these clues in the problem statement:
+1. Array contains numbers in a **known range** like `[1, n]` or `[0, n]`
+2. Problem asks to find **missing**, **duplicate**, or **misplaced** numbers
+3. Constraint: **O(1) space** or **in-place** solution required
+4. Array size equals or is close to the range of values
+
+---
+
+### **Interview Tip**
+The swap condition `nums[i] != nums[correct]` is critical — it prevents an **infinite loop** when a duplicate exists. Without this check, swapping two identical values at different positions would loop forever.
+
+```python
+# Without guard — INFINITE LOOP for duplicates:
+# nums = [1, 2, 2]
+# nums[2] - 1 = 1, nums[1] = 2 = nums[2] → keep swapping forever
+
+# With guard — safe:
+if nums[i] != nums[correct]:
+    nums[i], nums[correct] = nums[correct], nums[i]
+else:
+    i += 1   # duplicate detected, skip
+```
+
